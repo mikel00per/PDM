@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFF"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="612dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/botonSubirImagen"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="140dp"
+                android:layout_height="140dp"
+                android:background="@drawable/user" />
+
+            <EditText
+                android:id="@+id/nombre"
+                android:layout_width="289dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:hint="Nombre"
+                android:inputType="text" />
+
+            <EditText
+                android:id="@+id/apellidos"
+                android:layout_width="289dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:hint="Apellidos"
+                android:inputType="text" />
+
+            <EditText
+                android:id="@+id/ciudad"
+                android:layout_width="289dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:hint="Ciudad"
+                android:inputType="text" />
+
+            <EditText
+                android:id="@+id/Pais"
+                android:layout_width="289dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:hint="Pais"
+                android:inputType="text" />
+
+            <EditText
+                android:id="@+id/usuario"
+                android:layout_width="289dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:hint="Usuario"
+                android:inputType="text" />
+
+            <EditText
+                android:id="@+id/descripcion"
+                android:layout_width="289dp"
+                android:layout_height="112dp"
+                android:layout_marginTop="10dp"
+                android:hint="Sobre ti:"
+                android:inputType="text"
+                android:selectAllOnFocus="false"
+                android:singleLine="false" />
+
+            <TableLayout
+                android:id="@+id/TablaSexo"
+                android:layout_width="289dp"
+                android:layout_height="wrap_content"
+                android:paddingTop="10dp">
+
+                <TableRow
+                    android:id="@+id/FilaTitulo"
+                    android:layout_width="289dp"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/textView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Sexo: "
+                        android:textSize="18sp" />
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_horizontal">
+
+                    <CheckBox
+                        android:id="@+id/checkSexo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Hombre" />
+
+                    <CheckBox
+                        android:id="@+id/checkSexo2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Mujer" />
+
+                    <CheckBox
+                        android:id="@+id/checkBox"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Transexual" />
+
+                </TableRow>
+
+            </TableLayout>
+
+            <TableLayout
+                android:id="@+id/TablaOrientacion"
+                android:layout_width="289dp"
+                android:layout_height="wrap_content"
+                android:paddingTop="10dp">
+
+                <TableRow
+                    android:id="@+id/FilaTitulo"
+                    android:layout_width="289dp"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/textView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Orientación:"
+                        android:textSize="18sp" />
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_horizontal">
+
+                    <CheckBox
+                        android:id="@+id/checkSexo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Heterosexual" />
+
+                    <CheckBox
+                        android:id="@+id/checkSexo2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Homosexual" />
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_horizontal">
+
+                    <CheckBox
+                        android:id="@+id/checkSexo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Bisexual" />
+
+                    <CheckBox
+                        android:id="@+id/checkSexo2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Otro" />
+
+                </TableRow>
+
+            </TableLayout>
+
+            <Button
+                android:id="@+id/siguiente"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="58dp"
+                android:layout_height="48dp"
+                android:layout_marginTop="30dp"
+                android:background="@drawable/next"
+                android:paddingTop="30dp" />
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>
