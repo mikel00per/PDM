@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFF"
@@ -8,7 +10,7 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="612dp">
+        android:layout_height="wrap_content">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -16,12 +18,19 @@
             android:gravity="center"
             android:orientation="vertical">
 
+            <ImageView
+                android:id="@+id/imagenPerfilRegistro"
+                android:layout_width="140dp"
+                android:layout_height="140dp"
+                android:visibility="gone" />
+
             <Button
-                android:id="@+id/botonSubirImagen"
+                android:id="@+id/botonBuscarImagen"
                 style="@style/Widget.AppCompat.Button.Borderless"
                 android:layout_width="140dp"
                 android:layout_height="140dp"
-                android:background="@drawable/user" />
+                android:background="@drawable/user"
+                android:paddingTop="30dp" />
 
             <EditText
                 android:id="@+id/nombre"
@@ -29,30 +38,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:hint="Nombre"
-                android:inputType="text" />
-
-            <EditText
-                android:id="@+id/apellidos"
-                android:layout_width="289dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:hint="Apellidos"
-                android:inputType="text" />
-
-            <EditText
-                android:id="@+id/ciudad"
-                android:layout_width="289dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:hint="Ciudad"
-                android:inputType="text" />
-
-            <EditText
-                android:id="@+id/Pais"
-                android:layout_width="289dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:hint="Pais"
                 android:inputType="text" />
 
             <EditText
@@ -64,10 +49,19 @@
                 android:inputType="text" />
 
             <EditText
+                android:id="@+id/ubicacion"
+                android:layout_width="289dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:hint="Ubicación"
+                android:inputType="text" />
+
+            <EditText
                 android:id="@+id/descripcion"
                 android:layout_width="289dp"
-                android:layout_height="112dp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
+                android:gravity="bottom"
                 android:hint="Sobre ti:"
                 android:inputType="text"
                 android:selectAllOnFocus="false"
@@ -96,18 +90,21 @@
                 <TableRow
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:layout_marginTop="10dp"
                     android:gravity="center_horizontal">
 
                     <CheckBox
                         android:id="@+id/checkSexo"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:paddingRight="10dp"
                         android:text="Hombre" />
 
                     <CheckBox
                         android:id="@+id/checkSexo2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:paddingRight="10dp"
                         android:text="Mujer" />
 
                     <CheckBox
@@ -143,12 +140,14 @@
                 <TableRow
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:layout_marginTop="10dp"
                     android:gravity="center_horizontal">
 
                     <CheckBox
                         android:id="@+id/checkSexo"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:paddingRight="10dp"
                         android:text="Heterosexual" />
 
                     <CheckBox
@@ -162,12 +161,14 @@
                 <TableRow
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_marginTop="10dp"
                     android:gravity="center_horizontal">
 
                     <CheckBox
                         android:id="@+id/checkSexo"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:paddingRight="10dp"
                         android:text="Bisexual" />
 
                     <CheckBox
@@ -181,11 +182,12 @@
             </TableLayout>
 
             <Button
-                android:id="@+id/siguiente"
+                android:id="@+id/botonSiguiente"
                 style="@style/Widget.AppCompat.Button.Borderless"
-                android:layout_width="58dp"
-                android:layout_height="48dp"
+                android:layout_width="45dp"
+                android:layout_height="37dp"
                 android:layout_marginTop="30dp"
+                android:layout_marginBottom="50dp"
                 android:background="@drawable/next"
                 android:paddingTop="30dp" />
         </LinearLayout>
