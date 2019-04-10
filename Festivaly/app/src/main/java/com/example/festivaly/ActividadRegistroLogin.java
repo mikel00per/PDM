@@ -2,24 +2,20 @@ package com.example.festivaly;
 
 import android.Manifest;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.database.Cursor;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.Drawable;
-import android.media.Image;
 import android.net.Uri;
-import android.os.Parcelable;
+import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-
-import android.content.Intent;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -40,13 +36,11 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
-import com.squareup.picasso.Picasso;
-import com.squareup.picasso.PicassoProvider;
-
-import java.io.File;
 
 
-public class ActividadRegistroLogin extends AppCompatActivity implements View.OnClickListener {
+
+
+public class ActividadRegistroLogin extends AppCompatActivity implements View.OnClickListener{
     // register xml
     EditText email,password;
     // login xml
@@ -71,7 +65,6 @@ public class ActividadRegistroLogin extends AppCompatActivity implements View.On
     private Usuario usuario_actual;
 
     private static int RESULT_LOAD_IMAGE = 1;
-    private static final int PICK_FROM_GALLERY = 2;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -106,8 +99,8 @@ public class ActividadRegistroLogin extends AppCompatActivity implements View.On
         super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
         if(firebaseAuth.getCurrentUser() != null){
-            //Intent intent = new Intent(getApplicationContext(),ActividadPrincipal.class);
-            //startActivity(intent);
+            Intent intent = new Intent(getApplicationContext(),ActividadPrincipal.class);
+            startActivity(intent);
         }
     }
 
@@ -147,7 +140,10 @@ public class ActividadRegistroLogin extends AppCompatActivity implements View.On
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if(task.isSuccessful()){
-                                    Toast.makeText(getApplicationContext(),"Registro correcto",Toast.LENGTH_SHORT).show();
+                                    // Una vez iniciada sesión cargamos el nuevo layout y escuchamos los nuevos campos
+                                    if(firebaseAuth.getCurrentUser()!=null){
+                                        Toast.makeText(getApplicationContext(),"Susscess",Toast.LENGTH_SHORT).show();
+                                    }
                                 }
                                 else{
                                     Toast.makeText(getApplicationContext(),"E-mail or password is wrong",Toast.LENGTH_SHORT).show();
@@ -155,28 +151,28 @@ public class ActividadRegistroLogin extends AppCompatActivity implements View.On
                             }
                         });
 
-               // Una vez iniciada sesión cargamos el nuevo layout y escuchamos los nuevos campos
-                if(firebaseAuth.getCurrentUser()!=null){
-                    setContentView(R.layout.datos_usuario);
+                setContentView(R.layout.datos_usuario);
 
-                    nombre = (EditText) findViewById(R.id.nombre);
-                    nombre.setOnClickListener(this);
+                nombre = (EditText) findViewById(R.id.nombre);
+                nombre.setOnClickListener(this);
 
-                    ubicacion = (EditText) findViewById(R.id.ubicacion);
-                    ubicacion.setOnClickListener(this);
+                ubicacion = (EditText) findViewById(R.id.ubicacion);
+                ubicacion.setOnClickListener(this);
 
-                    usuario = (EditText) findViewById(R.id.usuario);
-                    usuario.setOnClickListener(this);
+                usuario = (EditText) findViewById(R.id.usuario);
+                usuario.setOnClickListener(this);
 
-                    descripcion = (EditText) findViewById(R.id.descripcion);
-                    descripcion.setOnClickListener(this);
+                descripcion = (EditText) findViewById(R.id.descripcion);
+                descripcion.setOnClickListener(this);
 
-                    botonSiguiente = (Button) findViewById(R.id.botonSiguiente);
-                    botonSiguiente.setOnClickListener(this);
+                botonSiguiente = (Button) findViewById(R.id.botonSiguiente);
+                botonSiguiente.setOnClickListener(this);
 
-                    botonBuscarFoto = (Button) findViewById(R.id.botonBuscarImagen);
-                    botonBuscarFoto.setOnClickListener(this);
-                }
+                botonBuscarFoto = (Button) findViewById(R.id.botonBuscarImagen);
+                botonBuscarFoto.setOnClickListener(this);
+
+
+
             break;
 
             // Botón que nos lleva a la pantalla de inicio de sesión
@@ -266,31 +262,10 @@ public class ActividadRegistroLogin extends AppCompatActivity implements View.On
             break;
 
             //Boton para salir del registro
+            // TODO: chequear sexo y orientación
             case R.id.botonSiguiente:
                 // Subimos la imagen del perfil
                 subirImagen();
-                // Creamos un objeto de tipo usuario para tenerlo en BD
-                Usuario nuevoUsuario = new Usuario(
-                        firebaseAuth.getCurrentUser().getUid(),
-                        firebaseAuth.getCurrentUser().getEmail(),
-                        nombre.getText().toString(),
-                        usuario.getText().toString(),
-                        ubicacion.getText().toString(),
-                        descripcion.getText().toString(),
-                        "masculino",
-                        "ninguna",
-                        fileCloud.toString()
-                );
-
-                usuario_actual = nuevoUsuario;
-                // Lo metemos en la base de datos
-                mDataBase.child("users").child(nuevoUsuario.getId()).setValue(nuevoUsuario);
-
-                // Iniciamos la actividad inicial
-                intent = new Intent(getApplicationContext(),ActividadPrincipal.class);
-                intent.putExtra("usuario_actual", usuario_actual);
-                startActivity(intent);
-
                 break;
         }
 
@@ -325,6 +300,30 @@ public class ActividadRegistroLogin extends AppCompatActivity implements View.On
                                 @Override
                                 public void onSuccess(Uri uri) {
                                     fileCloud = uri;
+
+                                    // Creamos un objeto de tipo usuario para tenerlo en BD
+                                    Usuario nuevoUsuario = new Usuario(
+                                            firebaseAuth.getCurrentUser().getUid(),
+                                            firebaseAuth.getCurrentUser().getEmail(),
+                                            nombre.getText().toString(),
+                                            usuario.getText().toString(),
+                                            ubicacion.getText().toString(),
+                                            descripcion.getText().toString(),
+                                            "masculino",
+                                            "ninguna",
+                                            fileCloud.toString()
+                                    );
+
+                                    usuario_actual = nuevoUsuario;
+                                    // Lo metemos en la base de datos
+                                    mDataBase.child("users").child(nuevoUsuario.getId()).setValue(nuevoUsuario).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task) {
+                                            // Iniciamos la actividad inicial
+                                            Intent intent = new Intent(getApplicationContext(),ActividadPrincipal.class);
+                                            startActivity(intent);
+                                        }
+                                    });
                                 }
                             });
 
@@ -378,27 +377,5 @@ public class ActividadRegistroLogin extends AppCompatActivity implements View.On
             }
         }
     }
-
-    /**
-     * Funcion para recoger el resutado de llamar a la búsqueda de imagenes.
-     * @param requestCode Código de respuesta
-     * @param resultCode Código de resultado de la actividad
-     * @param data Datos que devuelve la actividad
-     */
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == RESULT_LOAD_IMAGE && resultCode == RESULT_OK && null != data) {
-            // Recogemos los datos seleecionados como un uri, url.
-            Uri selectedImage = data.getData();
-            filePath = selectedImage;
-            // Creamos una referencia a la vista para luego sustituir, es la unica forma viable
-            ImageView nueva_imagen = findViewById(R.id.imagenPerfilRegistro);
-            Picasso.get().load(filePath.toString()).centerCrop().resize(300,300).into(nueva_imagen);
-            img = nueva_imagen;
-            // ocultamos el botón.
-            botonBuscarFoto.setVisibility(View.GONE);
-            img.setPadding(0,20,0,0);
-        }
-    }
 }
+

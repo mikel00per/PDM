@@ -1,15 +1,12 @@
 package com.example.festivaly;
 
-import android.net.Uri;
-
-import java.io.Serializable;
-
-public class Usuario implements Serializable {
+public class Usuario {
     private String id, correo, nombre, usuario, ubicacion, desripcion, sexo, orientacion;
     private String imagenPerfil;
 
-    public Usuario() {
-    }
+
+
+    public Usuario(){}
 
     public Usuario(String id, String correo, String nombre, String usuario, String ubicacion, String desripcion, String sexo, String orientacion, String imagenPerfil) {
         this.id = id;
@@ -94,5 +91,7 @@ public class Usuario implements Serializable {
     public void setOrientacion(String orientacion) {
         this.orientacion = orientacion;
     }
+
+
 
 }

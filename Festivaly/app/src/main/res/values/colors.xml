@@ -3,4 +3,5 @@
     <color name="colorPrimary">#000000</color>
     <color name="colorPrimaryDark">#000000</color>
     <color name="colorAccent">#4B4B4B</color>
+    <color name="poner_comentario">#EAEAEA</color>
 </resources>
