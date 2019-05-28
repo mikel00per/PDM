@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_notes"
+            android:icon="@drawable/ic_nota"
+            android:title="Notas" />
+        <item
+            android:id="@+id/nav_archivadas"
+            android:icon="@drawable/ic_archivadas"
+            android:title="Archivadas" />
+        <item
+            android:id="@+id/nav_tareas"
+            android:icon="@drawable/ic_tareas"
+            android:title="Tareas" />
+        <item
+            android:id="@+id/nav_calendario"
+            android:icon="@drawable/ic_calendar"
+            android:title="Calendario" />
+    </group>
+
+    <item android:title="Otros">
+        <menu>
+            <item
+                android:id="@+id/nav_share"
+                android:icon="@drawable/ic_menu_share"
+                android:title="Compartir" />
+            <item
+                android:id="@+id/nav_visit_us"
+                android:icon="@mipmap/ic_globe"
+                android:title="Visitame" />
+        </menu>
+    </item>
+
+</menu>

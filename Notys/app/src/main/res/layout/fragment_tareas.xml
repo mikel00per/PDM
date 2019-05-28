@@ -1,0 +1,37 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="com.example.notys.MainActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <com.shrikanthravi.collapsiblecalendarview.widget.CollapsibleCalendar
+            android:id="@+id/collapsibleCalendarView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:buttonLeft_drawableTintColor="@android:color/white"
+            app:buttonRight_drawableTintColor="@android:color/white"
+            app:expandIconColor="@color/colorWhite"
+            app:eventColor="@color/colorWhite"
+            app:primaryColor="@color/colorPrimary"
+            app:selectedItem_background="@drawable/circle_white_solid_background"
+            app:selectedItem_textColor="@color/colorPrimaryDark"
+            app:textColor="@color/colorWhite"
+            app:todayItem_background="@drawable/circle_white_stroke_background"
+            app:todayItem_textColor="@color/colorWhite">
+        </com.shrikanthravi.collapsiblecalendarview.widget.CollapsibleCalendar>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/lista_tareas"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </LinearLayout>
+
+
+</FrameLayout>
