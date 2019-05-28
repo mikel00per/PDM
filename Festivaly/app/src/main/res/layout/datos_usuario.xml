@@ -29,6 +29,7 @@
                 style="@style/Widget.AppCompat.Button.Borderless"
                 android:layout_width="140dp"
                 android:layout_height="140dp"
+                android:layout_marginTop="20dp"
                 android:background="@drawable/user"
                 android:paddingTop="30dp" />
 
@@ -59,11 +60,11 @@
             <EditText
                 android:id="@+id/descripcion"
                 android:layout_width="289dp"
-                android:layout_height="wrap_content"
+                android:layout_height="80dp"
                 android:layout_marginTop="10dp"
                 android:gravity="bottom"
                 android:hint="Sobre ti:"
-                android:inputType="text"
+                android:inputType="textMultiLine|text"
                 android:selectAllOnFocus="false"
                 android:singleLine="false" />
 

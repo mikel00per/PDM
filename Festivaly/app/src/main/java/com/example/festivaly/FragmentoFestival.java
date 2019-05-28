@@ -76,6 +76,8 @@ public class FragmentoFestival extends Fragment implements View.OnClickListener 
                 mDataBase = FirebaseDatabase.getInstance().getReference();
                 firebaseAuth = FirebaseAuth.getInstance();
 
+                
+
                 Query query = FirebaseDatabase.getInstance()
                         .getReference()
                         .child("festival_1")
@@ -111,7 +113,7 @@ public class FragmentoFestival extends Fragment implements View.OnClickListener 
                             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                 usuarioActual = dataSnapshot.getValue(Usuario.class);
                                 holder.setNombe(dataSnapshot.getValue(Usuario.class).getNombre());
-                                holder.setUser("@"+ dataSnapshot.getValue(Usuario.class).getUsuario());
+                                holder.setUser("@" + dataSnapshot.getValue(Usuario.class).getUsuario());
                                 holder.setFecha(model.getFecha());
                                 holder.setImgPerfil(dataSnapshot.getValue(Usuario.class).getImagenPerfil());
                             }
@@ -124,6 +126,9 @@ public class FragmentoFestival extends Fragment implements View.OnClickListener 
                     }
                 };
 
+                // TODO: Boton de respuesta:
+                // para escuachar los botones de los comentarios
+                // https://stackoverflow.com/questions/28296708/get-clicked-item-and-its-position-in-recyclerview
                 recyclerView = v.findViewById(R.id.recyclerView);
                 recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
                 recyclerView.setAdapter( adapter );
@@ -139,6 +144,9 @@ public class FragmentoFestival extends Fragment implements View.OnClickListener 
         super.onStart();
         adapter.startListening();
     }
+
+
+
 
     @Override
     public void onClick(View v) {

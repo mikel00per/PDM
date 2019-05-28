@@ -40,7 +40,7 @@
         android:layout_height="50dp"
         android:layout_marginTop="50dp"
         android:background="@color/colorPrimary"
-        android:text="Log-in"
+        android:text="Iniciar"
         android:textColor="#FFFF" />
 
     <Button
@@ -50,7 +50,7 @@
         android:layout_marginBottom="10dp"
         android:background="@null"
         android:onClick="onClick"
-        android:text="Volver al registro"
+        android:text="Volver"
         android:textAllCaps="false"
         android:textColor="@color/colorPrimary" />
 

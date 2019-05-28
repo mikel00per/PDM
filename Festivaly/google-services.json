@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "27832677811",
+    "firebase_url": "https://festivaly-599a7.firebaseio.com",
+    "project_id": "festivaly-599a7",
+    "storage_bucket": "festivaly-599a7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:27832677811:android:f362e5ff56dcf9ff",
+        "android_client_info": {
+          "package_name": "com.example.festivaly"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "27832677811-ncemlg3m4davp2c47dp7t1q88r3rn2ni.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.festivaly",
+            "certificate_hash": "587fc9e7923cc37fafe1b9f2f27726ae2873ea60"
+          }
+        },
+        {
+          "client_id": "27832677811-i8ma1o7n4kqt4egt6st0fdmrindg1p1c.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAoqmC608myVoqsQ94ClHwep55qrjdnVAk"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "27832677811-i8ma1o7n4kqt4egt6st0fdmrindg1p1c.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

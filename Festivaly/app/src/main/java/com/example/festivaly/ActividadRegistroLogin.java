@@ -1,6 +1,7 @@
 package com.example.festivaly;
 
 import android.Manifest;
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -36,11 +37,13 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.squareup.picasso.Picasso;
 
-
+import jp.wasabeef.picasso.transformations.CropCircleTransformation;
 
 
 public class ActividadRegistroLogin extends AppCompatActivity implements View.OnClickListener{
+
     // register xml
     EditText email,password;
     // login xml
@@ -66,6 +69,7 @@ public class ActividadRegistroLogin extends AppCompatActivity implements View.On
 
     private static int RESULT_LOAD_IMAGE = 1;
 
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -83,7 +87,7 @@ public class ActividadRegistroLogin extends AppCompatActivity implements View.On
         botonInicioSesion = (Button) findViewById(R.id.botonInicioSesion);
         botonInicioSesion.setOnClickListener(this);
 
-        img = (ImageView) findViewById(R.id.imageView);
+
 
         firebaseAuth = FirebaseAuth.getInstance();
         mDataBase = FirebaseDatabase.getInstance().getReference();
@@ -99,7 +103,8 @@ public class ActividadRegistroLogin extends AppCompatActivity implements View.On
         super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
         if(firebaseAuth.getCurrentUser() != null){
-            Intent intent = new Intent(getApplicationContext(),ActividadPrincipal.class);
+            finish();
+            Intent intent = new Intent(this,ActividadPrincipal.class);
             startActivity(intent);
         }
     }
@@ -233,8 +238,7 @@ public class ActividadRegistroLogin extends AppCompatActivity implements View.On
 
                 // TODO: buscar en la BD el usuario y bajarse el objeto de su información
                 // iniciamos la actividad inicial
-                intent = new Intent(getApplicationContext(),ActividadPrincipal.class);
-                startActivity(intent);
+
 
             break;
             // Boton para volver al registro
@@ -374,6 +378,34 @@ public class ActividadRegistroLogin extends AppCompatActivity implements View.On
                     Toast.makeText(ActividadRegistroLogin.this, "Please give your permission.", Toast.LENGTH_LONG).show();
                 }
                 break;
+            }
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+    }
+
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == RESULT_LOAD_IMAGE) {
+            if (resultCode == Activity.RESULT_OK) {
+                if (data != null) {
+                    filePath = data.getData();
+
+                    img = findViewById(R.id.imagenPerfilRegistro);
+                    Picasso
+                            .get()
+                            .load(data.getData().toString())
+                            .transform(new CropCircleTransformation())
+                            .into(img);
+
+                    img.setVisibility(View.VISIBLE);
+                    botonBuscarFoto.setVisibility(View.GONE);
+                }
+            } else if (resultCode == Activity.RESULT_CANCELED)  {
+                Toast.makeText(this, "Canceled", Toast.LENGTH_SHORT).show();
             }
         }
     }

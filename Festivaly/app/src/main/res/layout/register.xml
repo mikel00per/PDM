@@ -40,7 +40,7 @@
         android:layout_height="50dp"
         android:layout_marginTop="50dp"
         android:background="@color/colorPrimary"
-        android:text="Registrate!"
+        android:text="Registrar"
         android:textColor="#FFFF" />
 
 
@@ -51,7 +51,7 @@
         android:layout_marginBottom="10dp"
         android:background="@null"
         android:onClick="onClick"
-        android:text="Inicio sesión"
+        android:text="Inicio de sesión"
         android:textAllCaps="false"
         android:textColor="@color/colorPrimary" />
 

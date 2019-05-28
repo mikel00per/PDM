@@ -1,5 +1,6 @@
 package com.example.festivaly;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
@@ -19,6 +20,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 
+import com.firebase.ui.auth.AuthUI;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -50,8 +54,6 @@ public class ActividadPrincipal extends AppCompatActivity
         firebaseAuth = FirebaseAuth.getInstance();
 
         setContentView(R.layout.activity_actividad_principal);
-
-        Log.d("Usuario actual: ", firebaseAuth.getCurrentUser().getUid());
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -150,6 +152,17 @@ public class ActividadPrincipal extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+
+            FirebaseAuth.getInstance().signOut();
+            AuthUI.getInstance().signOut(this).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    FirebaseAuth.getInstance().signOut();
+                    finish();
+                    startActivity(new Intent(getApplicationContext(), ActividadRegistroLogin.class));
+
+                }
+            });
             return true;
         }
 
