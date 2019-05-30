@@ -3,6 +3,7 @@ package com.example.festivaly;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
@@ -20,6 +21,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 
+import com.example.festivaly.Fragments.FestivalesFragment;
+import com.example.festivaly.Fragments.NotificacionesFragment;
+import com.example.festivaly.Usuario.Usuario;
 import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -43,8 +47,10 @@ public class ActividadPrincipal extends AppCompatActivity
     private TextView titulo_nombre;
     private TextView correo_usuario;
 
-    private Usuario usuarioActual;
+    public Usuario usuarioActual;
     private ImageView imgPefil;
+
+    BottomNavigationView nav;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +60,7 @@ public class ActividadPrincipal extends AppCompatActivity
         firebaseAuth = FirebaseAuth.getInstance();
 
         setContentView(R.layout.activity_actividad_principal);
+        setTitle(Constantes.TAG_FESTIVALES);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -75,6 +82,52 @@ public class ActividadPrincipal extends AppCompatActivity
 
         final NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        nav = findViewById(R.id.navigation);
+        nav.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                Fragment f = null;
+                Log.d("OnNavItemSelect", String.valueOf(menuItem.getItemId()));
+                Log.d("OnNavItemSelect", String.valueOf(R.id.navigation_home));
+
+                switch (menuItem.getItemId()){
+                    case R.id.navigation_home:
+                        f = new FestivalesFragment();
+                        break;
+                    case R.id.navigation_notifications:
+                        f = new NotificacionesFragment();
+                        break;
+                    case R.id.navigation_perfil:
+                        f = null; // TODO CAMBIAR
+                        break;
+                }
+
+                return leerFragment(f);
+            }
+        });
+        nav.setOnNavigationItemReselectedListener(new BottomNavigationView.OnNavigationItemReselectedListener() {
+            @Override
+            public void onNavigationItemReselected(@NonNull MenuItem menuItem) {
+                Fragment f = null;
+                Log.d("OnNavItemSelect", String.valueOf(menuItem.getItemId()));
+                Log.d("OnNavItemSelect", String.valueOf(R.id.navigation_notifications));
+
+                switch (menuItem.getItemId()){
+                    case R.id.navigation_home:
+                        f = new FestivalesFragment();
+                        break;
+                    case R.id.navigation_notifications:
+                        f = new NotificacionesFragment();
+                        break;
+                    case R.id.navigation_perfil:
+                        f = null; // TODO CAMBIAR
+                        break;
+                }
+
+                leerFragment(f);
+            }
+        });
 
         dbeRef = FirebaseDatabase.getInstance().getReference();
 
@@ -114,11 +167,12 @@ public class ActividadPrincipal extends AppCompatActivity
 
         }
 
-        leerFragment(new FragmentoFestivales());
+        leerFragment(new FestivalesFragment());
     }
 
     private boolean leerFragment(Fragment fragment){
         if (fragment != null){
+            Log.d("leerFragment", "Entro");
             getSupportFragmentManager().beginTransaction().replace(R.id.contenedor_fragmentos, fragment).commit();
             return true;
         }else

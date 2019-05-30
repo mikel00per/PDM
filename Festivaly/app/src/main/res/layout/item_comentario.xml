@@ -20,11 +20,12 @@
             android:id="@+id/imgPerfilComentario"
             android:layout_width="55dp"
             android:layout_height="55dp"
+            android:layout_gravity="top"
             android:layout_margin="10dp"
             tools:srcCompat="@tools:sample/avatars[10]" />
 
         <LinearLayout
-            android:layout_width="293dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:background="@color/common_google_signin_btn_text_dark_default"
@@ -80,19 +81,51 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="10dp"
                 android:layout_weight="1"
                 android:ems="10"
                 android:inputType="textMultiLine|text"
-                android:maxLines="3" />
+                android:maxLines="3"
+                android:visibility="visible" />
+
+            <ImageView
+                android:id="@+id/imagenComentario"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="10dp"
+                android:adjustViewBounds="true"
+                android:visibility="gone" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_marginBottom="20dp"
+                android:background="@color/common_google_signin_btn_text_dark_default"
+                android:gravity="right"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/botonFavorito"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginRight="20dp"
+                    android:background="@drawable/ic_star_linea" />
+
+                <Button
+                    android:id="@+id/botonPetecionAmistad"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginRight="20dp"
+                    android:background="@drawable/ic_add_friend" />
+            </LinearLayout>
 
         </LinearLayout>
-
-        <ImageView
-            android:id="@+id/imageView2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            app:srcCompat="@drawable/ic_notifications_black_24dp" />
 
     </LinearLayout>
 

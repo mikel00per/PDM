@@ -1,14 +1,14 @@
-package com.example.festivaly;
+package com.example.festivaly.Usuario;
 
 public class Usuario {
     private String id, correo, nombre, usuario, ubicacion, desripcion, sexo, orientacion;
+    private Boolean admin;
     private String imagenPerfil;
-
 
 
     public Usuario(){}
 
-    public Usuario(String id, String correo, String nombre, String usuario, String ubicacion, String desripcion, String sexo, String orientacion, String imagenPerfil) {
+    public Usuario(String id, String correo, String nombre, String usuario, String ubicacion, String desripcion, String sexo, String orientacion, Boolean admin, String imagenPerfil) {
         this.id = id;
         this.correo = correo;
         this.nombre = nombre;
@@ -17,14 +17,7 @@ public class Usuario {
         this.desripcion = desripcion;
         this.sexo = sexo;
         this.orientacion = orientacion;
-        this.imagenPerfil = imagenPerfil;
-    }
-
-    public String getImagenPerfil() {
-        return imagenPerfil;
-    }
-
-    public void setImagenPerfil(String imagenPerfil) {
+        this.admin = admin;
         this.imagenPerfil = imagenPerfil;
     }
 
@@ -92,6 +85,19 @@ public class Usuario {
         this.orientacion = orientacion;
     }
 
+    public Boolean getAdmin() {
+        return admin;
+    }
 
+    public void setAdmin(Boolean admin) {
+        this.admin = admin;
+    }
 
+    public String getImagenPerfil() {
+        return imagenPerfil;
+    }
+
+    public void setImagenPerfil(String imagenPerfil) {
+        this.imagenPerfil = imagenPerfil;
+    }
 }

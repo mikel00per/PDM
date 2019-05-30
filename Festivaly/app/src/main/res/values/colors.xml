@@ -5,4 +5,16 @@
     <color name="colorAccent">#4B4B4B</color>
     <color name="poner_comentario">#000000</color>
     <color name="grisClaro">#D2D2D2</color>
+    <color name="colorPrimaryTransparent">#F2008577</color>
+    <color name="colorTransBg">#26000000</color>
+    <color name="colorBlack">#000000</color>
+    <color name="colorWhite">#FFFFFF</color>
+    <color name="colorNota1">#8E44AD</color>
+    <color name="colorNota2">#2980B9</color>
+    <color name="colorNota3">#16A085</color>
+    <color name="colorNota4">#F1C40F</color>
+    <color name="colorNota5">#D35400</color>
+    <color name="colorNota6">#7F8C8D</color>
+    <color name="colorNota7">#273746</color>
+    <color name="colorPestaniaClick">#24292E</color>
 </resources>

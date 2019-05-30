@@ -10,19 +10,18 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.example.festivaly.Usuario.Usuario;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -75,6 +74,7 @@ public class ActividadRegistroLogin extends AppCompatActivity implements View.On
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.register);
+        setTitle(Constantes.TAG_REGISTRO);
 
         FirebaseApp.initializeApp(this);
 
@@ -97,6 +97,8 @@ public class ActividadRegistroLogin extends AppCompatActivity implements View.On
     /**
      * Función que se ejecuta cuando se abre otra vez la app, si hemos iniciado sesión
      * entra directamente a la actividad principal
+     * TODO: PROBLEMA CON ESTO, COMPROBAR QUE AUN NO SE HA ACABADO EL REGISTRO SINO ENTRA EN CONFLICO
+     * CUANDO SALE DE BUSCAR IMAGEN Y PETA
      */
     @Override
     public void onStart() {
@@ -156,7 +158,7 @@ public class ActividadRegistroLogin extends AppCompatActivity implements View.On
                             }
                         });
 
-                setContentView(R.layout.datos_usuario);
+                setContentView(R.layout.register_datos_usuario);
 
                 nombre = (EditText) findViewById(R.id.nombre);
                 nombre.setOnClickListener(this);
@@ -175,14 +177,12 @@ public class ActividadRegistroLogin extends AppCompatActivity implements View.On
 
                 botonBuscarFoto = (Button) findViewById(R.id.botonBuscarImagen);
                 botonBuscarFoto.setOnClickListener(this);
-
-
-
             break;
 
             // Botón que nos lleva a la pantalla de inicio de sesión
             case R.id.botonInicioSesion:
                 setContentView(R.layout.login);
+                getActionBar().setTitle(Constantes.TAG_INICIO_DESION);
 
                 botonLogin = (Button) findViewById(R.id.botonLogin);
                 botonLogin.setOnClickListener(this);
@@ -197,6 +197,7 @@ public class ActividadRegistroLogin extends AppCompatActivity implements View.On
 
             // Botón que inicia sesión
             case R.id.botonLogin:
+                getActionBar().setTitle(Constantes.TAG_INICIO_DESION);
                 String emailTLogin = emailLogin.getText().toString();
                 String passwordTLogin = passwordLogin.getText().toString();
 
@@ -243,7 +244,7 @@ public class ActividadRegistroLogin extends AppCompatActivity implements View.On
             break;
             // Boton para volver al registro
             case R.id.botonVolver:
-                setContentView(R.layout.register);
+                getActionBar().setTitle(Constantes.TAG_REGISTRO);
                 email = (EditText) findViewById(R.id.email);
                 password = (EditText) findViewById(R.id.password);
 
@@ -315,6 +316,7 @@ public class ActividadRegistroLogin extends AppCompatActivity implements View.On
                                             descripcion.getText().toString(),
                                             "masculino",
                                             "ninguna",
+                                            false,
                                             fileCloud.toString()
                                     );
 

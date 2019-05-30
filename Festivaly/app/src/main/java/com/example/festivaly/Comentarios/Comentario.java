@@ -1,20 +1,37 @@
-package com.example.festivaly;
+package com.example.festivaly.Comentarios;
 
 import java.util.HashMap;
 
 public class Comentario {
-    private String id, usuario, contenido, fecha;
-    private HashMap<String,String> respuestas = new HashMap<>();
+    private String id, usuario, contenido, fecha, img;
+    private Boolean es_peticion;
 
     public Comentario() {
     }
 
-    public Comentario(String id, String usuario, String contenido, String fecha, HashMap<String, String> respuestas) {
+    public Comentario(String id, String usuario, String contenido, String fecha, String img, Boolean es_peticion) {
         this.id = id;
         this.usuario = usuario;
         this.contenido = contenido;
         this.fecha = fecha;
-        this.respuestas = respuestas;
+        this.img = img;
+        this.es_peticion = es_peticion;
+    }
+
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
+    }
+
+    public Boolean getEs_peticion() {
+        return es_peticion;
+    }
+
+    public void setEs_peticion(Boolean es_peticion) {
+        this.es_peticion = es_peticion;
     }
 
     public String getId() {
@@ -49,13 +66,6 @@ public class Comentario {
         this.fecha = fecha;
     }
 
-    public HashMap<String, String> getRespuestas() {
-        return respuestas;
-    }
-
-    public void setRespuestas(HashMap<String, String> respuestas) {
-        this.respuestas = respuestas;
-    }
 
     @Override
     public String toString() {
@@ -64,7 +74,6 @@ public class Comentario {
                 ", usuario='" + usuario + '\'' +
                 ", contenido='" + contenido + '\'' +
                 ", fecha='" + fecha + '\'' +
-                ", respuestas=" + respuestas +
                 '}';
     }
 }
