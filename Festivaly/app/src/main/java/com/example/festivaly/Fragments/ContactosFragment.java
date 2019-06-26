@@ -112,6 +112,16 @@ public class ContactosFragment extends Fragment {
 
             @Override
             public void onClickBorrar(int pos) {
+                HashMap<String,Object> nule = new HashMap<String, Object>();
+                nule.put(FirebaseAuth.getInstance().getCurrentUser().getUid(),null);
+                mDataBase.child("users").child(adapter.getUsuario().getId())
+                        .child("contactos").updateChildren(nule);
+
+                nule = new HashMap<String, Object>();
+                nule.put(adapter.getUsuario().getId(),null);
+                mDataBase.child("users").child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                        .child("contactos").updateChildren(nule);
+                rvContactos.removeItemDecorationAt(pos);
 
             }
         });

@@ -51,6 +51,10 @@ public class ContactoAdapter extends RecyclerView.Adapter<ContactoAdapter.Contac
         return contacto.getCorreo();
     }
 
+    public Usuario getUsuario(){
+        return contacto;
+    }
+
     public interface OnItemClickListener {
         void onClickPerfil(int pos);
         void onClickBorrar(int pos);

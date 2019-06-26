@@ -10,7 +10,7 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -30,6 +30,7 @@
                 android:layout_width="140dp"
                 android:layout_height="140dp"
                 android:layout_marginTop="20dp"
+                android:layout_marginBottom="10dp"
                 android:background="@drawable/user"
                 android:paddingTop="30dp" />
 
@@ -45,7 +46,7 @@
                 android:id="@+id/usuario"
                 android:layout_width="289dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="20dp"
                 android:hint="Usuario"
                 android:inputType="text" />
 
@@ -53,132 +54,20 @@
                 android:id="@+id/ubicacion"
                 android:layout_width="289dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="20dp"
                 android:hint="Ubicación"
                 android:inputType="text" />
 
             <EditText
                 android:id="@+id/descripcion"
                 android:layout_width="289dp"
-                android:layout_height="80dp"
-                android:layout_marginTop="10dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
                 android:gravity="bottom"
-                android:hint="Sobre ti:"
-                android:inputType="textMultiLine|text"
+                android:hint="Telefono"
+                android:inputType="textPhonetic"
                 android:selectAllOnFocus="false"
                 android:singleLine="false" />
-
-            <TableLayout
-                android:id="@+id/TablaSexo"
-                android:layout_width="289dp"
-                android:layout_height="wrap_content"
-                android:paddingTop="10dp">
-
-                <TableRow
-                    android:id="@+id/FilaTitulo"
-                    android:layout_width="289dp"
-                    android:layout_height="wrap_content">
-
-                    <TextView
-                        android:id="@+id/textView"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Sexo: "
-                        android:textSize="18sp" />
-
-                </TableRow>
-
-                <TableRow
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="10dp"
-                    android:gravity="center_horizontal">
-
-                    <CheckBox
-                        android:id="@+id/checkSexo"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingRight="10dp"
-                        android:text="Hombre" />
-
-                    <CheckBox
-                        android:id="@+id/checkSexo2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingRight="10dp"
-                        android:text="Mujer" />
-
-                    <CheckBox
-                        android:id="@+id/checkBox"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Transexual" />
-
-                </TableRow>
-
-            </TableLayout>
-
-            <TableLayout
-                android:id="@+id/TablaOrientacion"
-                android:layout_width="289dp"
-                android:layout_height="wrap_content"
-                android:paddingTop="10dp">
-
-                <TableRow
-                    android:layout_width="289dp"
-                    android:layout_height="wrap_content">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Orientación:"
-                        android:textSize="18sp" />
-
-                </TableRow>
-
-                <TableRow
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="10dp"
-                    android:gravity="center_horizontal">
-
-                    <CheckBox
-                        android:id="@+id/checkSexo1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingRight="10dp"
-                        android:text="Heterosexual" />
-
-                    <CheckBox
-                        android:id="@+id/checkSexo2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Homosexual" />
-
-                </TableRow>
-
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="10dp"
-                    android:gravity="center_horizontal">
-
-                    <CheckBox
-                        android:id="@+id/checkSexo3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingRight="10dp"
-                        android:text="Bisexual" />
-
-                    <CheckBox
-                        android:id="@+id/checkSexo4"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Otro" />
-
-                </TableRow>
-
-            </TableLayout>
 
             <Button
                 android:id="@+id/botonSiguiente"
