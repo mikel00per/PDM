@@ -16,15 +16,30 @@
             android:gravity="center"
             android:orientation="vertical">
 
-            <EditText
-                android:id="@+id/titulo_tarea"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@android:color/transparent"
-                android:ems="10"
-                android:hint="Titulo tarea"
-                android:inputType="textPersonName"
-                android:padding="10dp" />
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/titulo_tarea"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:background="@android:color/transparent"
+                    android:ems="10"
+                    android:hint="Titulo tarea"
+                    android:inputType="textPersonName"
+                    android:padding="10dp" />
+
+                <Button
+                    android:id="@+id/botonAudioNota2"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="20dp"
+                    android:background="@drawable/ic_mic" />
+            </LinearLayout>
 
             <View
                 android:id="@+id/divider"
@@ -32,16 +47,31 @@
                 android:layout_height="1dp"
                 android:background="?android:attr/dividerVertical" />
 
-            <EditText
-                android:id="@+id/descripcion_tarea"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@android:color/transparent"
-                android:ems="10"
-                android:hint="Descripción de la tarea"
-                android:inputType="textMultiLine|textPersonName"
-                android:lines="5"
-                android:padding="10dp" />
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/descripcion_tarea"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:background="@android:color/transparent"
+                    android:ems="10"
+                    android:hint="Descripción de la tarea"
+                    android:inputType="textMultiLine|textPersonName"
+                    android:lines="5"
+                    android:padding="10dp" />
+
+                <Button
+                    android:id="@+id/botonAudioNota3"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="20dp"
+                    android:background="@drawable/ic_mic" />
+            </LinearLayout>
 
             <View
                 android:id="@+id/divider2"

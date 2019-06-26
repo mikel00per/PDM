@@ -1,7 +1,9 @@
 package com.example.festivaly.Fragments;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +19,7 @@ public class NotificacionesFragment extends Fragment implements View.OnClickList
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = null;
-        v = inflater.inflate(R.layout.fragment_notificaciones, null);
+        v = inflater.inflate(R.layout.fragment_notificaciones, container, false);
         getActivity().setTitle(Constantes.TAG_NOTIFICACIONES);
 
         toMeButton = v.findViewById(R.id.tome);
@@ -28,9 +30,15 @@ public class NotificacionesFragment extends Fragment implements View.OnClickList
         return v;
     }
 
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        Fragment f = new ToMeFragment();
+        leerSubFragment(f);
+    }
+
     boolean leerSubFragment(Fragment f){
         if (f != null){
-            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.contenedor_subfragmentos, f).commit();
+            getChildFragmentManager().beginTransaction().replace(R.id.subFragment,f).commit();
             return true;
         }else
             return false;

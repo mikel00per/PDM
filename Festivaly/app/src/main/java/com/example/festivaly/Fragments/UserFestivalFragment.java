@@ -1,11 +1,11 @@
 package com.example.festivaly.Fragments;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -74,75 +74,82 @@ public class UserFestivalFragment extends Fragment implements View.OnClickListen
 
             lyComentario = v.findViewById(R.id.LinearLayoutComentario);
 
-            mDataBase = FirebaseDatabase.getInstance().getReference();
-            firebaseAuth = FirebaseAuth.getInstance();
-
-
-            Query query = FirebaseDatabase.getInstance()
-                    .getReference()
-                    .child("festival_"+num_festival)
-                    .child("comentarios")
-                    .limitToLast(10);
-
-            FirebaseRecyclerOptions<Comentario> options =
-                    new FirebaseRecyclerOptions.Builder<Comentario>()
-                            .setQuery(query,Comentario.class)
-                            .build();
-
-
-            adapter = new FirebaseRecyclerAdapter<Comentario, ComentarioHolder>(options) {
-                @Override
-                public ComentarioHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-                    // Create a new instance of the ViewHolder, in this case we are using a custom
-                    // layout called R.layout.message for each item
-                    View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_comentario, parent, false);
-
-                    return new ComentarioHolder(view);
-                }
-
-                @Override
-                protected void onBindViewHolder(final ComentarioHolder holder, int position, final Comentario model) {
-                    // Bind the Chat object to the ChatHolder
-                    // ...
-
-                    String id = model.getUsuario();
-                    holder.setContenido(model.getContenido());
-                    holder.setImgContenido(model.getImg());
-                    holder.setBotonPeticionAmistad(model.getEs_peticion());
-                    holder.setFecha(model.getFecha());
-                    mDataBase.child("users").child(id).addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                            usuarioActual = dataSnapshot.getValue(Usuario.class);
-                            holder.setNombe(dataSnapshot.getValue(Usuario.class).getNombre());
-                            holder.setUser("@" + dataSnapshot.getValue(Usuario.class).getUsuario());
-                            holder.setImgPerfil(dataSnapshot.getValue(Usuario.class).getImagenPerfil());
-                        }
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                        }
-                    });
-                }
-
-
-            };
-
-            // TODO: Boton de respuesta:
-            // para escuachar los botones de los comentarios
-            // https://stackoverflow.com/questions/28296708/get-clicked-item-and-its-position-in-recyclerview
-            recyclerView = v.findViewById(R.id.recyclerView);
-            mLayoutManager = new LinearLayoutManager(getActivity());
-            mLayoutManager.setReverseLayout(true);
-            mLayoutManager.setStackFromEnd(true);
-            recyclerView.setLayoutManager(mLayoutManager);
-            recyclerView.setAdapter( adapter );
-
+            mostrarListaComentarios(v);
         }
 
 
         return v;
+    }
+
+    private void mostrarListaComentarios(View v) {
+        mDataBase = FirebaseDatabase.getInstance().getReference();
+        firebaseAuth = FirebaseAuth.getInstance();
+
+
+        Query query = FirebaseDatabase.getInstance()
+            .getReference()
+            .child("festival_"+num_festival)
+            .child("comentarios")
+            .limitToLast(10);
+
+        FirebaseRecyclerOptions<Comentario> options = new FirebaseRecyclerOptions.Builder<Comentario>()
+            .setQuery(query,Comentario.class)
+            .build();
+
+
+        crearAdaptadorComentarios(options);
+
+        // TODO: Boton de respuesta:
+        // para escuachar los botones de los comentarios
+        // https://stackoverflow.com/questions/28296708/get-clicked-item-and-its-position-in-recyclerview
+        recyclerView = v.findViewById(R.id.recyclerView);
+        mLayoutManager = new LinearLayoutManager(getActivity());
+        mLayoutManager.setReverseLayout(true);
+        mLayoutManager.setStackFromEnd(true);
+        recyclerView.setLayoutManager(mLayoutManager);
+        recyclerView.setAdapter( adapter );
+    }
+
+    private void crearAdaptadorComentarios(FirebaseRecyclerOptions<Comentario> options) {
+        adapter = new FirebaseRecyclerAdapter<Comentario, ComentarioHolder>(options) {
+            @Override
+            public ComentarioHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+                // Create a new instance of the ViewHolder, in this case we are using a custom
+                // layout called R.layout.message for each item
+                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_comentario, parent, false);
+
+                return new ComentarioHolder(view, getContext());
+            }
+
+            @Override
+            protected void onBindViewHolder(final ComentarioHolder holder, int position, final Comentario model) {
+                // Bind the Chat object to the ChatHolder
+                // ...
+
+                String idUsuario = model.getUsuario();
+                holder.setContenido(model.getContenido());
+                holder.setImgContenido(model.getImg());
+                holder.setBotonPeticionAmistad(model.getEs_peticion(),model.getId(),idUsuario);
+                holder.setFecha(model.getFecha());
+                holder.setIdComentarioPeticion(model.getId());
+                mDataBase.child("users").child(idUsuario).addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        usuarioActual = dataSnapshot.getValue(Usuario.class);
+                        holder.setNombe(dataSnapshot.getValue(Usuario.class).getNombre());
+                        holder.setUser("@" + dataSnapshot.getValue(Usuario.class).getUsuario());
+                        holder.setImgPerfil(dataSnapshot.getValue(Usuario.class).getImagenPerfil());
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+            }
+
+
+        };
     }
 
     @Override

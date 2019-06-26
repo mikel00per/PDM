@@ -4,11 +4,12 @@ public class Usuario {
     private String id, correo, nombre, usuario, ubicacion, desripcion, sexo, orientacion;
     private Boolean admin;
     private String imagenPerfil;
+    private String tokenMobile;
 
 
     public Usuario(){}
 
-    public Usuario(String id, String correo, String nombre, String usuario, String ubicacion, String desripcion, String sexo, String orientacion, Boolean admin, String imagenPerfil) {
+    public Usuario(String id, String correo, String nombre, String usuario, String ubicacion, String desripcion, String sexo, String orientacion, Boolean admin, String imagenPerfil, String tokenMobile) {
         this.id = id;
         this.correo = correo;
         this.nombre = nombre;
@@ -19,6 +20,15 @@ public class Usuario {
         this.orientacion = orientacion;
         this.admin = admin;
         this.imagenPerfil = imagenPerfil;
+        this.tokenMobile = tokenMobile;
+    }
+
+    public String getTokenMobile() {
+        return tokenMobile;
+    }
+
+    public void setTokenMobile(String tokenMobile) {
+        this.tokenMobile = tokenMobile;
     }
 
     public String getId() {

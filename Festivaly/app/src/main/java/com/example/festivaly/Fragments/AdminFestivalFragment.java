@@ -1,31 +1,26 @@
 package com.example.festivaly.Fragments;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import com.example.festivaly.Anuncio.Anuncio;
 import com.example.festivaly.Anuncio.AnuncioHolder;
-import com.example.festivaly.Comentarios.Comentario;
-import com.example.festivaly.Comentarios.ComentarioHolder;
 import com.example.festivaly.Constantes;
 import com.example.festivaly.R;
 import com.example.festivaly.Usuario.Usuario;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -33,11 +28,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.UUID;
 
 public class AdminFestivalFragment extends Fragment implements View.OnClickListener {
 
@@ -118,13 +108,15 @@ public class AdminFestivalFragment extends Fragment implements View.OnClickListe
                     holder.setFecha(model.getFecha());
                     holder.setContenido(model.getContenido());
                     holder.setImgContenido(model.getImg());
-                    String id = model.getAdmin();
+                    String idAdmin = model.getAdmin();
 
-                    mDataBase.child("users").child(id).addListenerForSingleValueEvent(new ValueEventListener() {
+                    mDataBase.child("users").child(idAdmin).addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                            usuarioActual = dataSnapshot.getValue(Usuario.class);
                             holder.setImgAdmin(dataSnapshot.getValue(Usuario.class).getImagenPerfil());
+                            if (dataSnapshot.getValue(Usuario.class).getId()!= FirebaseAuth.getInstance().getCurrentUser().getUid()){
+                                enviar.setVisibility(View.GONE);
+                            }
                         }
 
                         @Override

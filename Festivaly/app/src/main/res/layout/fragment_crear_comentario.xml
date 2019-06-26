@@ -32,7 +32,7 @@
                 android:id="@+id/divider2"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="?android:attr/dividerVertical" />
+                android:background="?attr/dividerVertical" />
 
 
             <ImageView
@@ -41,13 +41,13 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
                 android:adjustViewBounds="true"
-                android:src="@android:color/background_light" />
+                app:srcCompat="@android:color/background_light" />
 
             <View
                 android:id="@+id/divider3"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="?android:attr/dividerVertical" />
+                android:background="?attr/dividerVertical" />
 
             <Button
                 android:id="@+id/abrir_foto_comentario"
@@ -61,7 +61,7 @@
                 android:id="@+id/divider4"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="?android:attr/dividerVertical" />
+                android:background="?attr/dividerVertical" />
 
             <Button
                 android:id="@+id/publicar_comentario"

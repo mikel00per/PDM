@@ -5,6 +5,7 @@
     <color name="colorAccent">#4B4B4B</color>
     <color name="poner_comentario">#000000</color>
     <color name="grisClaro">#D2D2D2</color>
+    <color name="grisOscuro">#AAAA</color>
     <color name="colorPrimaryTransparent">#F2008577</color>
     <color name="colorTransBg">#26000000</color>
     <color name="colorBlack">#000000</color>

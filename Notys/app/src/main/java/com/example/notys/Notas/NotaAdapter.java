@@ -5,7 +5,9 @@ import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
+import android.text.method.ScrollingMovementMethod;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
@@ -16,12 +18,18 @@ import com.example.notys.R;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class NotaAdapter extends RecyclerView.Adapter<NotaAdapter.NotaViewHolder> {
+public class NotaAdapter extends RecyclerView.Adapter<NotaAdapter.NotaViewHolder> implements View.OnTouchListener {
 
     private ArrayList<Nota> data;
     private OnItemClickListener mlistener;
     private Context context;
     private boolean archivada;
+
+    @Override
+    public boolean onTouch(View v, MotionEvent event) {
+        v.getParent().requestDisallowInterceptTouchEvent(true);
+        return false;
+    }
 
     public interface OnItemClickListener{
             void onItemArchivar(int pos) throws IOException;
@@ -54,7 +62,8 @@ public class NotaAdapter extends RecyclerView.Adapter<NotaAdapter.NotaViewHolder
     public void onBindViewHolder(NotaViewHolder holder, final int position) {
         Nota nota = data.get(position);
         holder.contenido.setText(nota.getContenido());
-
+        holder.contenido.setOnTouchListener(this);
+        holder.contenido.setMovementMethod(new ScrollingMovementMethod());
         String color = nota.getColor();
 
         switch (color){
@@ -92,6 +101,7 @@ public class NotaAdapter extends RecyclerView.Adapter<NotaAdapter.NotaViewHolder
             super(itemView);
 
             contenido = itemView.findViewById(R.id.test_note);
+
 
             if (!archivada){
                 archivar = itemView.findViewById(R.id.archivar);

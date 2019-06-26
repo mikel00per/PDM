@@ -12,21 +12,40 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <EditText
-                    android:id="@+id/contenido_nota"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_margin="20dp"
-                    android:background="@android:color/transparent"
-                    android:clickable="false"
-                    android:ems="10"
-                    android:gravity="top"
-                    android:hint="Nota..."
-                    android:inputType="textLongMessage|textMultiLine|text"
-                    android:padding="10dp" />
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:id="@+id/contenido_nota"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginBottom="20dp"
+                        android:layout_weight="2"
+                        android:background="@android:color/transparent"
+                        android:clickable="false"
+                        android:gravity="top"
+                        android:hint="Nota..."
+                        android:inputType="textLongMessage|textMultiLine|text"
+                        android:maxLines="10"
+                        android:padding="10dp" />
+
+                    <Button
+                        android:id="@+id/botonAudioNota"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginRight="20dp"
+                        android:layout_marginBottom="20dp"
+                        android:background="@drawable/ic_mic" />
+                </LinearLayout>
 
                 <View
                     android:id="@+id/divider6"

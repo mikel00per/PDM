@@ -1,11 +1,11 @@
 package com.example.festivaly.Fragments;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,6 +45,13 @@ public class FestivalesFragment extends Fragment implements View.OnClickListener
         data.add(new Festival("DreamBeach","23/02/2019", Constantes.festival3,"https://firebasestorage.googleapis.com/v0/b/festivaly-599a7.appspot.com/o/imagenes-festivales%2Fdreambeach.jpg?alt=media&token=f031dd87-7d47-4352-b060-b88ec31f0d2f"));
         data.add(new Festival("Azkena Rock","23/02/2019", Constantes.festival4,"https://firebasestorage.googleapis.com/v0/b/festivaly-599a7.appspot.com/o/imagenes-festivales%2Fazkena.jpg?alt=media&token=197d5dd3-7c4c-4d07-90d2-f7a2f7a53d1c"));
 
+        crearAdaptadorFestivales();
+
+        return view;
+
+    }
+
+    private void crearAdaptadorFestivales() {
         adapter = new FestivalAdapter(getContext(),data);
 
         adapter.setOnItemClickListener(new FestivalAdapter.OnItemClickListener() {
@@ -68,16 +75,6 @@ public class FestivalesFragment extends Fragment implements View.OnClickListener
         });
 
         rvFestivales.setAdapter(adapter);
-
-        return view;
-
-    }
-
-
-    @Override
-    public void onClick(View v) {
-
-
     }
 
     public void leerFragment(Fragment fragment){
@@ -91,4 +88,8 @@ public class FestivalesFragment extends Fragment implements View.OnClickListener
         }
     }
 
+    @Override
+    public void onClick(View v) {
+
+    }
 }

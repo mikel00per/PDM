@@ -1,9 +1,13 @@
 package com.example.notys.Fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.speech.RecognitionListener;
+import android.speech.RecognizerIntent;
+import android.speech.SpeechRecognizer;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -13,8 +17,10 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -49,6 +55,9 @@ public class CrearTareaFragment extends Fragment {
     TextView titulo, descripcion_tarea, fechaSeleccionada;
     String fechaIniSeleccionada, fechaFinSeleccionada, horaSeleccionada, colorSeleccionado;
     File path;
+    Button bAudio;
+
+    String cadena_escuchada = "";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -181,6 +190,164 @@ public class CrearTareaFragment extends Fragment {
 
         });
 
+
+        final SpeechRecognizer mSpeechRecognizer1 = SpeechRecognizer.createSpeechRecognizer(getContext());
+        final Intent mSpeechRecognizerIntent1 = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+
+        mSpeechRecognizerIntent1.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
+                RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+        mSpeechRecognizerIntent1.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault());
+
+        mSpeechRecognizer1.setRecognitionListener(new RecognitionListener() {
+            @Override
+            public void onReadyForSpeech(Bundle bundle) {
+
+            }
+
+            @Override
+            public void onBeginningOfSpeech() {
+
+            }
+
+            @Override
+            public void onRmsChanged(float v) {
+
+            }
+
+            @Override
+            public void onBufferReceived(byte[] bytes) {
+
+            }
+
+            @Override
+            public void onEndOfSpeech() {
+
+            }
+
+            @Override
+            public void onError(int i) {
+
+            }
+
+            @Override
+            public void onResults(Bundle bundle) {
+                //getting all the matches
+                ArrayList<String> matches = bundle.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
+
+                //displaying the first match
+                if (matches != null) titulo.setText(matches.get(0));
+            }
+
+            @Override
+            public void onPartialResults(Bundle bundle) {
+
+            }
+
+            @Override
+            public void onEvent(int i, Bundle bundle) {
+
+            }
+        });
+
+        v.findViewById(R.id.botonAudioNota2).setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_UP:
+                        //when the user removed the finger
+                        mSpeechRecognizer1.stopListening();
+                        titulo.setHint("Escriba o dicte algo");
+                        break;
+
+                    case MotionEvent.ACTION_DOWN:
+                        //finger is on the button
+                        mSpeechRecognizer1.startListening(mSpeechRecognizerIntent1);
+                        titulo.setText("");
+                        titulo.setHint("Escuchando...");
+                        break;
+                }
+                return false;
+            }
+        });
+
+        final SpeechRecognizer mSpeechRecognizer2 = SpeechRecognizer.createSpeechRecognizer(getContext());
+        final Intent mSpeechRecognizerIntent2= new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+
+        mSpeechRecognizerIntent2.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
+                RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+        mSpeechRecognizerIntent2.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault());
+
+        mSpeechRecognizer2.setRecognitionListener(new RecognitionListener() {
+            @Override
+            public void onReadyForSpeech(Bundle bundle) {
+
+            }
+
+            @Override
+            public void onBeginningOfSpeech() {
+
+            }
+
+            @Override
+            public void onRmsChanged(float v) {
+
+            }
+
+            @Override
+            public void onBufferReceived(byte[] bytes) {
+
+            }
+
+            @Override
+            public void onEndOfSpeech() {
+
+            }
+
+            @Override
+            public void onError(int i) {
+
+            }
+
+            @Override
+            public void onResults(Bundle bundle) {
+                //getting all the matches
+                ArrayList<String> matches = bundle.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
+
+                //displaying the first match
+                if (matches != null) descripcion_tarea.setText(matches.get(0));
+            }
+
+            @Override
+            public void onPartialResults(Bundle bundle) {
+
+            }
+
+            @Override
+            public void onEvent(int i, Bundle bundle) {
+
+            }
+        });
+
+        v.findViewById(R.id.botonAudioNota3).setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_UP:
+                        //when the user removed the finger
+                        mSpeechRecognizer2.stopListening();
+                        descripcion_tarea.setHint("Escriba o dicte algo");
+                        break;
+
+                    case MotionEvent.ACTION_DOWN:
+                        //finger is on the button
+                        mSpeechRecognizer2.startListening(mSpeechRecognizerIntent2);
+                        descripcion_tarea.setText("");
+                        descripcion_tarea.setHint("Escuchando...");
+                        break;
+                }
+                return false;
+            }
+        });
 
         // Inflate the layout for this fragment
         return v;

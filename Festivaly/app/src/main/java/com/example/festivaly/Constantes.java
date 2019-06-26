@@ -11,9 +11,10 @@ public class Constantes {
     public final static String TAG_CREAR_ANUNCIO = "Crear anuncio";
     public final static String TAG_CREAR_COMENTARIO = "Crear comentario";
     public final static String TAG_NOTIFICACIONES = "Notificaciones";
+    public final static String TOKEN_APP = "";
     public final static String TAG_PETICIONES_TO_ME = "Para mi";
     public final static String TAG_PETICIONES_FROM_ME = "De mi";
-    public final static String TAG_PERFIL = "Perfil";
+    public final static String TAG_CONTACTOS = "Contactos";
 
 
     public final static String festival1 = "Viña Rock es mucho más que un festival de música rock, reggae, rap, mestizaje y metal. Punto de encuentro anual para los amantes de la música y buen ambiente";
@@ -25,5 +26,13 @@ public class Constantes {
     public final static String festival3_img = "";
     public final static String festival2_img = "";
     public final static String festival4_img = "";
+
+
+    // Notificaciones
+    public static String title = "";
+    public static String content = "";
+    public static String imageUrl = "";
+    public static String gameUrl = "";
+
 
 }
