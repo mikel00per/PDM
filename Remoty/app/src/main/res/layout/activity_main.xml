@@ -66,34 +66,24 @@
                     android:id="@+id/state"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="un-initiated"
+                    android:text="no iniciado"
+                    android:textAlignment="center"
                     android:textSize="20dp" />
 
-                <Button
-                    android:id="@+id/audio"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:clickable="true"
-                    android:text="Grabar" />
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="vertical">
 
-                <EditText
-                    android:id="@+id/msgtosend"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="msg to send..."
-                    android:inputType="textMultiLine" />
+                    <Button
+                        android:id="@+id/next"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:background="@drawable/ic_next"
+                        android:gravity="center" />
+                </LinearLayout>
 
-                <Button
-                    android:id="@+id/send"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Send" />
-
-                <TextView
-                    android:id="@+id/received"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="18dp"/>
             </LinearLayout>
         </ScrollView>
 

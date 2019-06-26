@@ -39,11 +39,14 @@ public class MainActivity extends WearableActivity {
 
 
     EditText editTextAddress, editTextPort, editTextMsg;
-    Button buttonConnect, buttonDisconnect, buttonSend;
+    Button buttonConnect, buttonDisconnect, buttonSend, buttonNex, buttonAudio;
     TextView textViewState, textViewRx;
 
     private static final int SPEECH_REQUEST_CODE = 0;
     private static final int REQUEST_RECORD_PERMISSION = 100;
+
+    SpeechRecognizer mSpeechRecognizer;
+    Intent mSpeechRecognizerIntent;
     
 
     @Override
@@ -54,109 +57,121 @@ public class MainActivity extends WearableActivity {
         setContentView(R.layout.activity_main);
         editTextAddress = (EditText) findViewById(R.id.ip);
         editTextPort = (EditText) findViewById(R.id.port);
-        editTextMsg = (EditText) findViewById(R.id.msgtosend);
         buttonConnect = (Button) findViewById(R.id.conectar);
         buttonDisconnect = (Button) findViewById(R.id.desconectar);
-        buttonSend = (Button)findViewById(R.id.send);
+        buttonNex = findViewById(R.id.next);
         textViewState = (TextView)findViewById(R.id.state);
-        textViewRx = (TextView)findViewById(R.id.received);
-
-
-        final SpeechRecognizer mSpeechRecognizer = SpeechRecognizer.createSpeechRecognizer(getApplicationContext());
-        final Intent mSpeechRecognizerIntent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
-
-        mSpeechRecognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
-                RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
-        mSpeechRecognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault());
-
-        mSpeechRecognizer.setRecognitionListener(new RecognitionListener() {
-            @Override
-            public void onReadyForSpeech(Bundle bundle) {
-
-            }
-
-            @Override
-            public void onBeginningOfSpeech() {
-
-            }
-
-            @Override
-            public void onRmsChanged(float v) {
-
-            }
-
-            @Override
-            public void onBufferReceived(byte[] bytes) {
-
-            }
-
-            @Override
-            public void onEndOfSpeech() {
-
-            }
-
-            @Override
-            public void onError(int i) {
-
-            }
-
-            @Override
-            public void onResults(Bundle bundle) {
-                //getting all the matches
-                ArrayList<String> matches = bundle.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
-
-                //displaying the first match
-                if (matches != null) {
-                    editTextMsg.setText(matches.get(0));
-                    textoEscuchado = matches.get(0);
-                }
-            }
-
-            @Override
-            public void onPartialResults(Bundle bundle) {
-
-            }
-
-            @Override
-            public void onEvent(int i, Bundle bundle) {
-
-            }
-        });
-
-
-
-
-        findViewById(R.id.audio).setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                switch (event.getAction()) {
-                    case MotionEvent.ACTION_UP:
-                        //when the user removed the finger
-                        mSpeechRecognizer.stopListening();
-                        editTextMsg.setHint("Escriba o dicte la nota");
-                        break;
-
-                    case MotionEvent.ACTION_DOWN:
-                        //finger is on the button
-                        mSpeechRecognizer.startListening(mSpeechRecognizerIntent);
-                        editTextMsg.setText("");
-                        editTextMsg.setHint("Escuchando...");
-                        break;
-                }
-                return false;
-            }
-        });
 
         buttonDisconnect.setEnabled(false);
-        buttonSend.setEnabled(false);
 
         buttonConnect.setOnClickListener(buttonConnectOnClickListener);
         buttonDisconnect.setOnClickListener(buttonDisConnectOnClickListener);
-        buttonSend.setOnClickListener(buttonSendOnClickListener);
+        buttonNex.setOnClickListener(buttonNextOnClickListener);
 
         clientHandler = new ClientHandler(this);
-
     }
+
+    View.OnClickListener buttonNextOnClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            setContentView(R.layout.escuchardor_audio);
+            buttonSend = (Button) findViewById(R.id.send);
+            editTextMsg = (EditText) findViewById(R.id.msgtosend);
+            textViewRx = (TextView)findViewById(R.id.received);
+
+            buttonSend.setOnClickListener(buttonSendOnClickListener);
+
+            mSpeechRecognizer = SpeechRecognizer.createSpeechRecognizer(getApplicationContext());
+            mSpeechRecognizerIntent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+
+
+            buttonAudio = findViewById(R.id.audio);
+
+            mSpeechRecognizerIntent
+                    .putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+            mSpeechRecognizerIntent
+                    .putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault());
+            mSpeechRecognizer.setRecognitionListener(new RecognitionListener() {
+                @Override
+                public void onReadyForSpeech(Bundle bundle) {
+
+                }
+
+                @Override
+                public void onBeginningOfSpeech() {
+
+                }
+
+                @Override
+                public void onRmsChanged(float v) {
+
+                }
+
+                @Override
+                public void onBufferReceived(byte[] bytes) {
+
+                }
+
+                @Override
+                public void onEndOfSpeech() {
+
+                }
+
+                @Override
+                public void onError(int i) {
+
+                }
+
+                @Override
+                public void onResults(Bundle bundle) {
+                    //getting all the matches
+                    ArrayList<String> matches = bundle.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
+
+                    //displaying the first match
+                    if (matches != null) {
+                        editTextMsg.setText(matches.get(0));
+                        textoEscuchado = matches.get(0);
+                        buttonSend.setEnabled(true);
+                    }else{
+                        buttonSend.setEnabled(false);
+                    }
+                }
+
+                @Override
+                public void onPartialResults(Bundle bundle) {
+
+                }
+
+                @Override
+                public void onEvent(int i, Bundle bundle) {
+
+                }
+            });
+
+            buttonAudio.setOnTouchListener(buttonAudioOnTouchListener);
+        }
+    };
+
+    View.OnTouchListener buttonAudioOnTouchListener = new View.OnTouchListener() {
+        @Override
+        public boolean onTouch(View v, MotionEvent event) {
+            switch (event.getAction()){
+                case MotionEvent.ACTION_UP:
+                    //when the user removed the finger
+                    mSpeechRecognizer.stopListening();
+                    editTextMsg.setHint("Escriba o dicte la nota");
+                    break;
+
+                case MotionEvent.ACTION_DOWN:
+                    //finger is on the button
+                    mSpeechRecognizer.startListening(mSpeechRecognizerIntent);
+                    editTextMsg.setText("");
+                    editTextMsg.setHint("Escuchando...");
+                    break;
+            }
+            return false;
+        }
+    };
 
     View.OnClickListener buttonConnectOnClickListener =
             new View.OnClickListener() {
@@ -172,8 +187,6 @@ public class MainActivity extends WearableActivity {
 
                     buttonConnect.setEnabled(false);
                     buttonDisconnect.setEnabled(true);
-                    buttonSend.setEnabled(true);
-
                 }
             };
 
@@ -235,7 +248,6 @@ public class MainActivity extends WearableActivity {
         textViewState.setText("clientEnd()");
         buttonConnect.setEnabled(true);
         buttonDisconnect.setEnabled(false);
-        buttonSend.setEnabled(false);
 
     }
 
