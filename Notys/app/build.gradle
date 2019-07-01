@@ -31,4 +31,5 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     implementation 'com.github.psinetron:slycalendarview:0.0.9'
     implementation 'com.github.shrikanth7698:Collapsible-Calendar-View-Android:-SNAPSHOT'
+    implementation 'me.everything:providers-android:1.0.1'
 }

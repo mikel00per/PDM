@@ -53,15 +53,17 @@
             android:paddingRight="8dp"
             android:paddingBottom="3dp"
             android:text="FabTitle1"
-            android:textColor="@android:color/white" />
+            android:textColor="@android:color/white"
+            android:visibility="gone" />
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/fab1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
-            app:srcCompat="@android:drawable/ic_dialog_email"
-            app:fabSize="mini"/>
+            android:visibility="gone"
+            app:fabSize="mini"
+            app:srcCompat="@android:drawable/ic_dialog_email" />
     </LinearLayout>
 
     <LinearLayout
