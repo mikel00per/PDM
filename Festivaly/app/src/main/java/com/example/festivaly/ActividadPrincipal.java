@@ -1,6 +1,7 @@
 package com.example.festivaly;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 
@@ -290,18 +291,18 @@ public class ActividadPrincipal extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+        if (id == R.id.nav_perfil) {
 
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
+        } else if (id == R.id.nav_ajustes) {
 
         } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
+            Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+            sharingIntent.setType(Constantes.SHARE_TEXT_TYPE);
+            sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, Constantes.SHARE_TITLE);
+            sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, Constantes.SHARE_MESSAGE);
+        } else if (id == R.id.nav_visit_us) {
+            Intent urlIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(Constantes.SITE_URL));
+            startActivity(urlIntent);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

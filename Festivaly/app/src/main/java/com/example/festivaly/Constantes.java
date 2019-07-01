@@ -16,6 +16,11 @@ public class Constantes {
     public final static String TAG_PETICIONES_FROM_ME = "De mi";
     public final static String TAG_CONTACTOS = "Contactos";
 
+    public final static String SHARE_TITLE = "App para festivales";
+    public final static String SITE_URL = "https://github.com/mikel00per";
+    public final static String SHARE_MESSAGE = "Esta app está genial para ponerse en contacto con gente en los festivales";
+    public final static String SHARE_TEXT_TYPE = "text/plain";
+
 
     public final static String festival1 = "Viña Rock es mucho más que un festival de música rock, reggae, rap, mestizaje y metal. Punto de encuentro anual para los amantes de la música y buen ambiente";
     public final static String festival3 = "Enorme festival de música electrónica en la playa de Villaricos, Almería. Cada verano, el impresionante cartel del festival reúne a un buen puñado de los más grandes DJs y artistas del panorama musical en directo, los mejores nombres del EDM, house, techno, drum & bass, trance, hardstyle, rap y más.";
