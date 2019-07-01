@@ -113,10 +113,12 @@ public class AdminFestivalFragment extends Fragment implements View.OnClickListe
                     mDataBase.child("users").child(idAdmin).addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                            holder.setImgAdmin(dataSnapshot.getValue(Usuario.class).getImagenPerfil());
-                            if (dataSnapshot.getValue(Usuario.class).getId()!= FirebaseAuth.getInstance().getCurrentUser().getUid()){
+                            if (dataSnapshot.getValue(Usuario.class).getAdmin()){
                                 enviar.setVisibility(View.GONE);
+                            }else{
+                                enviar.setVisibility(View.VISIBLE);
                             }
+                            holder.setImgAdmin(dataSnapshot.getValue(Usuario.class).getImagenPerfil());
                         }
 
                         @Override

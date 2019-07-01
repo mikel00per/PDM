@@ -38,12 +38,13 @@ public class MyFirebaseMenssagingService extends FirebaseMessagingService {
      */
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
+
         super.onMessageReceived(remoteMessage);
         // TODO(developer): Handle FCM messages here.
         // If the application is in the foreground handle both data and notification messages here.
         // Also if you intend on generating your own notifications as a result of a received FCM
         // message, here is where that should be initiated. See sendNotification method below.
-        RemoteMessage.Notification notification = remoteMessage.getNotification();
+        RemoteMessage.Notification notification = null;
         Map<String, String> data = remoteMessage.getData();
 
         sendNotification(notification, data);
@@ -61,37 +62,45 @@ public class MyFirebaseMenssagingService extends FirebaseMessagingService {
 
         Intent intentAceptar = new Intent(this, ActividadPrincipal.class);
         intentAceptar.setAction("aceptar");
+        intentAceptar.putExtra("idUsuarioPeticion",data.get("id_up"));
+        intentAceptar.putExtra("idPeticion",data.get("id_p"));
         intentAceptar.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
         PendingIntent pendingIntentAceptar = PendingIntent.getActivity(this, 0, intentAceptar, PendingIntent.FLAG_ONE_SHOT);
 
-        Intent intentRechazar= new Intent(this, ActividadPrincipal.class);
-        intentAceptar.setAction("rechazar");
-        intentAceptar.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        Intent intentRechazar = new Intent(this, ActividadPrincipal.class);
+        intentRechazar.setAction("rechazar");
+        intentRechazar.putExtra("idUsuarioPeticion",data.get("id_up"));
+        intentRechazar.putExtra("idPeticion",data.get("id_p"));
+        intentRechazar.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
-        PendingIntent pendingIntentRechazar = PendingIntent.getActivity(this, 0, intentAceptar, PendingIntent.FLAG_ONE_SHOT);
+        PendingIntent pendingIntentRechazar = PendingIntent.getActivity(this, 0, intentRechazar, PendingIntent.FLAG_ONE_SHOT);
 
-        Intent intentMostrar= new Intent(this, ActividadPrincipal.class);
-        intentAceptar.setAction("mostrar");
-        intentAceptar.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        Intent intentMostrar = new Intent(this, ActividadPrincipal.class);
+        intentMostrar.setAction("mostrar");
+        intentMostrar.putExtra("idUsuarioPeticion",data.get("id_up"));
+        intentMostrar.putExtra("idPeticion",data.get("id_p"));
+        intentMostrar.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
-        PendingIntent pendingIntentMostrar = PendingIntent.getActivity(this, 0, intentAceptar, PendingIntent.FLAG_ONE_SHOT);
+        PendingIntent pendingIntentMostrar = PendingIntent.getActivity(this, 0, intentMostrar, PendingIntent.FLAG_ONE_SHOT);
 
 
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this, "channel_id")
-                .setContentTitle(notification.getTitle())
-                .setContentText(notification.getBody())
+                .setContentTitle(data.get("title"))
+                .setContentText(data.get("body"))
                 .setAutoCancel(true)
                 .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
                 .setContentIntent(pendingIntentMostrar)
-                .setContentInfo(notification.getTitle())
+                .setContentInfo(data.get("title"))
                 .setLargeIcon(icon)
                 .setColor(Color.BLACK)
                 .setLights(Color.RED, 1000, 300)
                 .setDefaults(Notification.DEFAULT_VIBRATE)
                 .setSmallIcon(R.mipmap.ic_launcher)
                 .addAction(R.drawable.ic_add_friend,"Aceptar",pendingIntentAceptar)
-                .addAction(R.drawable.ic_eliminar_peticion,"Rechazar",pendingIntentRechazar);
+                .addAction(R.drawable.ic_eliminar_peticion,"Rechazar",pendingIntentRechazar)
+                .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
+                .setAutoCancel(true);
 
         try {
             String picture_url = data.get("picture_url");
@@ -99,7 +108,7 @@ public class MyFirebaseMenssagingService extends FirebaseMessagingService {
                 URL url = new URL(picture_url);
                 Bitmap bigPicture = BitmapFactory.decodeStream(url.openConnection().getInputStream());
                 notificationBuilder.setStyle(
-                        new NotificationCompat.BigPictureStyle().bigPicture(bigPicture).setSummaryText(notification.getBody())
+                        new NotificationCompat.BigPictureStyle().bigPicture(bigPicture).setSummaryText(data.get("body"))
                 );
                 Log.d("Noty:",picture_url);
             }else{
@@ -123,6 +132,7 @@ public class MyFirebaseMenssagingService extends FirebaseMessagingService {
             channel.setLightColor(Color.RED);
             channel.enableVibration(true);
             channel.setVibrationPattern(new long[]{100, 200, 300, 400, 500});
+            channel.setLockscreenVisibility(Notification.VISIBILITY_PUBLIC);
             notificationManager.createNotificationChannel(channel);
         }
 

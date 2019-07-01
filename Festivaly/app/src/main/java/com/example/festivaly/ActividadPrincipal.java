@@ -39,6 +39,9 @@ import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
 import com.squareup.picasso.Picasso;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import jp.wasabeef.picasso.transformations.CropCircleTransformation;
 
 public class ActividadPrincipal extends AppCompatActivity
@@ -57,35 +60,104 @@ public class ActividadPrincipal extends AppCompatActivity
     BottomNavigationView nav;
     NavigationView navigationView;
 
+    DatabaseReference mDatabase;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        String accion;
-        if (getIntent().getAction() != null){
-            accion = getIntent().getAction();
-            Log.d("OnCreate", getIntent().getAction());
-        }
-
-
-        usuarioActual = new Usuario();
-        firebaseAuth = FirebaseAuth.getInstance();
-
         setContentView(R.layout.activity_actividad_principal);
         setTitle(Constantes.TAG_FESTIVALES);
-
+        firebaseAuth = FirebaseAuth.getInstance();
+        mDatabase = FirebaseDatabase.getInstance().getReference();
         controlarNavLateral();
         controlarNavInferior();
+
+        usuarioActual = new Usuario();
 
         if(firebaseAuth.getCurrentUser() != null) {
             dbeRef = FirebaseDatabase.getInstance().getReference();
             cargarDatosUsuarioActual();
         }
 
-        leerFragment(new FestivalesFragment());
+        String accion;
+        if (getIntent().getAction() != null){
+            accion = getIntent().getAction();
+            String idComentrioPeticion = getIntent().getStringExtra("idPeticion");
+            String idUsuario = getIntent().getStringExtra("idUsuarioPeticion");
+            Log.d("OnCreate", getIntent().getAction());
+            Fragment f = null;
+
+            switch (accion){
+                case "aceptar":
+                        aceptarPeticionNotificacion(idUsuario,idComentrioPeticion);
+                        leerFragment(new ContactosFragment());
+                    break;
+                case "rechazar":
+                        rechazarPeticionNotificacion(idUsuario,idComentrioPeticion);
+                        leerFragment(new FestivalesFragment());
+                    break;
+                case "mostrar":
+                        leerFragment(new NotificacionesFragment());
+                        leerFragment(new NotificacionesFragment());
+                    break;
+            }
+        }else{
+            leerFragment(new FestivalesFragment());
+        }
+
+
+
+    }
+    private void rechazarPeticionNotificacion(String idUsuario, String idComentrioPeticion) {
+        Map<String,Object> b = new HashMap<String, Object>();
+        b.put(idComentrioPeticion, null);
+
+        Log.d("eliminarAntiguPeticion",idComentrioPeticion);
+        mDatabase
+                .child("peticiones")
+                .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                .child("nuevas")
+                .updateChildren(b);
+
+        b = new HashMap<String, Object>();
+        b.put(idComentrioPeticion, null);
+        mDatabase
+                .child("peticiones")
+                .child(idUsuario)
+                .child("from_me")
+                .updateChildren(b);
+
+        b = new HashMap<String, Object>();
+        b.put(idComentrioPeticion, null);
+        mDatabase
+                .child("peticiones")
+                .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                .child("to_me")
+                .updateChildren(b);
     }
 
+    private void aceptarPeticionNotificacion(String idUsuario, String idComentrioPeticion) {
+        Map<String,Boolean> b = new HashMap<String, Boolean>();
+        b.put(FirebaseAuth.getInstance().getCurrentUser().getUid(),true);
+        mDatabase
+                .child("users")
+                .child(idUsuario)
+                .child("contactos")
+                .setValue(b);
+
+        b = new HashMap<String, Boolean>();
+        b.put(idUsuario,true);
+
+        mDatabase
+                .child("users")
+                .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                .child("contactos")
+                .setValue(b);
+
+        rechazarPeticionNotificacion(idUsuario,idComentrioPeticion);
+    }
     private void controlarNavLateral() {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);

@@ -2,7 +2,9 @@ package com.example.festivaly.Usuario;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +17,7 @@ import android.widget.TextView;
 import com.example.festivaly.Festivales.Festival;
 import com.example.festivaly.Festivales.FestivalAdapter;
 import com.example.festivaly.R;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -124,13 +127,34 @@ public class ContactoAdapter extends RecyclerView.Adapter<ContactoAdapter.Contac
             ver_perfil.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    listener.onClickPerfil(getAdapterPosition());
+                    //listener.onClickPerfil(getAdapterPosition());
+                    Intent intent = new Intent(Intent.ACTION_INSERT);
+                    intent.setType(ContactsContract.Contacts.CONTENT_TYPE);
+
+                    intent.putExtra(ContactsContract.Intents.Insert.NAME, getName());
+                    intent.putExtra(ContactsContract.Intents.Insert.PHONE,getPhone());
+                    intent.putExtra(ContactsContract.Intents.Insert.EMAIL,getEmail());
+
+                    context.startActivity(intent);
                 }
             });
 
             eliminar_amigo.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    notifyItemRemoved(getAdapterPosition());
+
+                    HashMap<String,Object> nule = new HashMap<String, Object>();
+                    nule.put(FirebaseAuth.getInstance().getCurrentUser().getUid(),null);
+                    mDataBase.child("users").child(getUsuario().getId())
+                            .child("contactos").updateChildren(nule);
+
+                    nule = new HashMap<String, Object>();
+                    nule.put(getUsuario().getId(),null);
+                    mDataBase.child("users").child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                            .child("contactos").updateChildren(nule);
+
+
                     listener.onClickBorrar(getAdapterPosition());
                 }
             });

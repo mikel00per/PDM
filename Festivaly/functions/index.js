@@ -61,16 +61,19 @@ exports.sendNewPeticionNotification = functions.database.ref('/peticiones/{idUse
         console.log('There are a token ', userTokenSnapshot.val(), ' to send notifications to.');
         console.log('Fetched follower id', userIdFromSnapshot.val());
         console.log('Fetched follower profile', userNameFromSnapshot.val());
+        console.log('id_up', userIdFromSnapshot.val());
+        console.log('id_p', idPeticion);
+
         console.log('Img', userImgFromSnapshot.val());
 
         // Notification detailsx.
         const payload = {
-            notification: {
+            data: {
                 title: '¡Peticion de contacto!',
                 body: `¡@${userNameFromSnapshot.val()} necesita tu contacto!`,
-            },
-            data: {
-              picture_url: `${userImgFromSnapshot.val()}`
+                picture_url: `${userImgFromSnapshot.val()}`,
+                id_up: `${userIdFromSnapshot.val()}`,
+                id_p: `${idPeticion}`
             }
         };
 

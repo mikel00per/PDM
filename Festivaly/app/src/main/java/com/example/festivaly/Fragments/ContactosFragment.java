@@ -79,50 +79,15 @@ public class ContactosFragment extends Fragment {
         rvContactos.setLayoutManager(glm);
 
         adapter = new ContactoAdapter(getContext(),data);
+
         adapter.setOnItemClickListener(new ContactoAdapter.OnItemClickListener() {
             @Override
             public void onClickPerfil(int pos) {
-                /*
-                Uri addContactsUri = ContactsContract.Data.CONTENT_URI;
 
-                // Add an empty contact and get the generated id.
-                long rowContactId = getRawContactId();
-
-                // Add contact name data.
-                String displayName = adapter.getName();
-                insertContactDisplayName(addContactsUri, rowContactId, displayName);
-
-                // Add contact phone data.
-                String phoneNumber = adapter.getPhone();
-                insertContactPhoneNumber(addContactsUri, rowContactId, phoneNumber, "unknonw");
-
-                Toast.makeText(getContext(),"New contact has been added, go back to previous page to see it in contacts list." , Toast.LENGTH_LONG).show();
-
-                getActivity().finish();
-                */
-                Intent intent = new Intent(Intent.ACTION_INSERT);
-                intent.setType(ContactsContract.Contacts.CONTENT_TYPE);
-
-                intent.putExtra(ContactsContract.Intents.Insert.NAME, adapter.getName());
-                intent.putExtra(ContactsContract.Intents.Insert.PHONE,adapter.getPhone());
-                intent.putExtra(ContactsContract.Intents.Insert.EMAIL,adapter.getEmail());
-
-                startActivity(intent);
             }
 
             @Override
             public void onClickBorrar(int pos) {
-                HashMap<String,Object> nule = new HashMap<String, Object>();
-                nule.put(FirebaseAuth.getInstance().getCurrentUser().getUid(),null);
-                mDataBase.child("users").child(adapter.getUsuario().getId())
-                        .child("contactos").updateChildren(nule);
-
-                nule = new HashMap<String, Object>();
-                nule.put(adapter.getUsuario().getId(),null);
-                mDataBase.child("users").child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                        .child("contactos").updateChildren(nule);
-                rvContactos.removeItemDecorationAt(pos);
-
             }
         });
 
